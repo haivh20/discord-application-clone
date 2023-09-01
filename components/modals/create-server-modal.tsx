@@ -36,10 +36,11 @@ const formSchema = z.object({
   }),
 });
 
-export const InitialModal = () => {
+export const CreateServerModal = () => {
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
+  const { isOpen, onClose, onOpen, type } = useModal();
 
- 
+  const isModalOpen = isOpen && type === "createServer";
 
   const router = useRouter();
 
@@ -63,6 +64,7 @@ export const InitialModal = () => {
       await axios.post("/api/servers", values);
       form.reset();
       router.refresh();
+      onClose();
     } catch (error) {
       console.log(error);
     }
@@ -72,8 +74,13 @@ export const InitialModal = () => {
     return null;
   }
 
+  const handleClose = () => {
+    form.reset();
+    onClose();
+  };
+
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden ">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-center font-bold text-2xl">

@@ -11,7 +11,7 @@ interface IFileUploadProps {
 import Image from "next/image";
 import { X } from "lucide-react";
 
-const FileUpload = ({ endpoint, value, onChange }: IFileUploadProps) => {
+export const FileUpload = ({ endpoint, value, onChange }: IFileUploadProps) => {
   const fileType = value?.split(".").pop();
 
   if (value && fileType !== "pdf") {
@@ -46,5 +46,3 @@ const FileUpload = ({ endpoint, value, onChange }: IFileUploadProps) => {
     </div>
   );
 };
-
-export default FileUpload;
